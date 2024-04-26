@@ -9,8 +9,7 @@ app.use(express.json())
 config()
 app.use('/spodium_support',route)
 DbConnect().then(()=>{
-    console.log('connected')
-    app.listen(5000,()=>{
+    app.listen(process.env.PORT,()=>{
         console.log('server started')
     })
 }).catch((error)=>{
