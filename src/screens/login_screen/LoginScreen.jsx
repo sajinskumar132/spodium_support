@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, TextInput, StyleSheet, ActivityIndicator, Keyboard } from 'react-native'
+import { View, Text, TouchableOpacity, Image, TextInput, StyleSheet, ActivityIndicator, Keyboard, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { Images } from '../../helpers/ImageHelper'
@@ -68,8 +68,10 @@ const LoginScreen = () => {
 
 
   return (
-    <View style={{flex:1,backgroundColor:'white',justifyContent:'center',alignItems:'center'}}>
-      <View>
+    
+ <View style={{flex:1,backgroundColor:'white',justifyContent:'center',alignItems:'center'}}>
+  <ScrollView  showsVerticalScrollIndicator={false}  contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}>
+      <View  >
         <View style={style.imageView}>
           <Image source={Images.spodium_logo} style={style.logoImage}/>
         </View>
@@ -101,7 +103,10 @@ const LoginScreen = () => {
             </TouchableOpacity>
           </View>
       </View>
+      </ScrollView>
     </View>
+   
+   
   )
 }
 
@@ -115,7 +120,7 @@ const style=StyleSheet.create({
     marginBottom:50
  },
    logoImage:{
-      marginVertical:30,
+      marginVertical:0,
    },
    subcontainer:{
     marginHorizontal:30
@@ -157,7 +162,7 @@ const style=StyleSheet.create({
     paddingVertical:10,
     paddingHorizontal:10,
     borderRadius:10,
-    width:300,
+    width:325,
     fontSize:15
    },
    loginMainContainer:{
