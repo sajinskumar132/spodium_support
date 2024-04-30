@@ -2,7 +2,8 @@ import Subscription from "../models/SubscriptionModel.js";
 
 export const getSubscription=async(req,res)=>{
     try {
-        const Subscriptions=await Subscription.find()
+        
+        const Subscriptions=await Subscription.find().sort({"created_at": -1})
         if(Subscriptions) return res.status(200).json({message:"Sucessfully get subscription list",data:Subscriptions})
         return res.status(400).json({message:"Failed to get subscription list",data:Subscriptions})
     } catch (error) {
