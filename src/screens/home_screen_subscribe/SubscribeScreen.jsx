@@ -1,10 +1,27 @@
-import {View, Text, StyleSheet, TextInput, ScrollView} from 'react-native';
-import React from 'react';
+import {View, Text, StyleSheet, TextInput, ScrollView, RefreshControl} from 'react-native';
+import React, { useEffect, useState } from 'react';
 import CustomHeader from '../../custom_components/header/CustomHeader';
 import AntdDesign from 'react-native-vector-icons/AntDesign';
+import { subscribtions } from '../../api/apis';
 
 const SubscribeScreen = () => {
-  const array = new Array(20).fill(null);
+  const [SubscriptionList,SetSubscriptionList]=useState([])
+  const [refreshing, setRefreshing] = React.useState(false);
+  useEffect(()=>{
+    subscribtions().then((response)=>{
+      SetSubscriptionList(response)
+      setRefreshing(false);
+    }).catch((error)=>{
+      console.log(error)
+    }).finally(()=>{
+      setRefreshing(false);
+    })
+  },[refreshing])
+  
+
+  const onRefresh =()=>{
+
+  };
   return (
     
     <View style={style.main_container}>
@@ -14,13 +31,14 @@ const SubscribeScreen = () => {
       <AntdDesign name="search1" size={20} color={'grey'} />
     </View>
     <View>
-      <ScrollView showsVerticalScrollIndicator={false}>
-         {array.map((item,index)=>(
-            <View style={style.main_subscription_container} key={index}>
-            <Text style={style.subscription_email}>SajinSkumar132@gmail.com {index}</Text>
-            <Text style={style.subscription_dateTime}>12-05-2024 10:50 AM</Text>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{paddingBottom:120}}
+      refreshControl={ <RefreshControl refreshing={refreshing} onRefresh={()=>{setRefreshing(true)}} />}
+      >
+         {SubscriptionList.map((item,index)=>(
+            <View style={style.main_subscription_container} key={item._id}>
+            <Text style={style.subscription_email}>{item.email}</Text>
+            <Text style={style.subscription_dateTime}>{item.createdAt.replace('T',' ').replace('Z',' ')}</Text>
          </View>
-       
          ))}
       </ScrollView>
       

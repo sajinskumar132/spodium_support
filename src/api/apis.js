@@ -13,3 +13,16 @@ export const userLogin=async(data)=>{
 }
 
 
+///get_subscription
+
+export const subscribtions=async(data)=>{
+    return new Promise(async (resolve, reject) => {
+        try {
+            const response = await axiosConfig.get('/get_subscription');
+            resolve(response.data.data);
+        } catch (error) {
+            reject(error.response.data.message);
+        }
+    });
+
+}
